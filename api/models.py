@@ -162,9 +162,9 @@ class James(models.Model):
 class Lot(models.Model):
     request = models.ForeignKey(Request, on_delete=models.PROTECT, verbose_name="Запрос")
     seller = models.ForeignKey(get_user_model(), on_delete=models.PROTECT, related_name='seller',
-                               verbose_name="Инвестор")
+                               verbose_name="Продавец")
     buyer = models.ForeignKey(get_user_model(), on_delete=models.PROTECT, related_name='buyer',
-                              verbose_name="Инвестор", null=True, blank=True)
+                              verbose_name="Покупатель", null=True, blank=True)
     sum = models.FloatField('Сумма', validators=[MinValueValidator(0.0)])
     post_date = models.DateField('Дата выставления', auto_now_add=True)
     expiration_date = models.DateField('Дата завершения')
