@@ -104,7 +104,7 @@ class Request(models.Model):
     min_payment = models.FloatField('Мин. взнос', validators=[MinValueValidator(0.0)])
 
     def _validate(self):
-        if self.soft_cap < self.hard_cap:
+        if self.soft_cap > self.hard_cap:
             raise ValidationError("Soft cap cannot be more than hard cap")
         if self.min_payment > self.hard_cap:
             raise ValidationError("Minimum payment value cannot be more than hard cap")
@@ -112,7 +112,7 @@ class Request(models.Model):
             raise ValidationError("Soft end date cannot be in the past")
         if self.hard_end_date <= datetime.date.today():
             raise ValidationError("Hard end date cannot be in the past")
-        if self.soft_end_date < self.hard_end_date:
+        if self.soft_end_date > self.hard_end_date:
             raise ValidationError("Hard end date cannot be before soft end date")
 
     def save(self, *args, **kwargs):
